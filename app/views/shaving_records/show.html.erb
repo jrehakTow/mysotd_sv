@@ -1,0 +1,42 @@
+
+  <div class="modal-dialog">
+    <div class = "modal-content">
+      <%- model_class = ShavingRecord -%>
+      <div class="modal-header">
+        <h3><%=t '.title', :default => model_class.model_name.human.titleize %></h3>
+      </div>
+
+      <div class = "modal-body"><dl class="dl-horizontal">
+        <dt><strong><%= model_class.human_attribute_name(:picture) %>:</strong></dt>
+        <dd><%= image_tag @shaving_record.picture(:medium) %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
+        <dd><%= @shaving_record.description %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:date) %>:</strong></dt>
+        <dd><%= @shaving_record.date.strftime("%b %d, %Y") %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:rating) %>:</strong></dt>
+        <dd><%= @shaving_record.rating %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:items) %>:</strong></dt>
+        <dd> <% @items.all.each do |item| %>
+              <div>
+                <%= item.name %>
+              </div>
+          <%end%></dd>
+      </dl>
+
+        <%= link_to t('.back', :default => t("helpers.links.back")),
+                    shaving_records_path, :class => 'btn btn-default'  %>
+        <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                    edit_shaving_record_path(@shaving_record), :class => 'btn btn-default' %>
+        <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                    shaving_record_path(@shaving_record),
+                    :method => 'delete',
+                    :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                    :class => 'btn btn-danger' %>
+        <div class="pull-right">
+          <%= button_to 'Tweet', {controller:'tweets', action: 'create', message: @shaving_record.description, picture: @shaving_record.picture.path}, :class => 'btn btn-primary' %>
+        </div>
+      </div>
+
+    </div>
+ </div>
+

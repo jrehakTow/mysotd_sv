@@ -1,0 +1,66 @@
+<%- model_class = Item -%>
+<div class = "panel panel-default">
+  <div class = "panel-heading">
+    <h5>
+      This Month's Expenses
+      <div class = "pull-right"><%=number_to_currency(@this_month_expense)%></div>
+    </h5>
+  </div>
+  <div class = "panel-body">
+    <table class="table table-responsive">
+      <thead>
+      <tr>
+        <th><%= model_class.human_attribute_name(:name) %></th>
+        <th><%= model_class.human_attribute_name(:uses) %></th>
+        <th><%= model_class.human_attribute_name(:price) %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @this_month_items.each do |item| %>
+          <tr>
+            <td><%= link_to item.name, item_path(item)%></td>
+            <td><%= item.uses %></td>
+            <td><%= number_to_currency(item.price) %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class = "panel panel-default">
+  <div class = "panel-heading">
+    <h5>
+      Search by Month
+      <div class = "pull-right">
+        <%=number_to_currency(@searched_month_expense )%>
+      </div>
+    </h5>
+  </div>
+  <div class = "panel-body">
+    <%= form_tag expenses_path, :method => 'get' do %>
+    <p>
+      <%= date_select(:search, params[:search],
+                      options = { order:[:month, :year], default: @the_date, include_blank: @the_date.nil?, start_year: @oldest_year, end_year: @newest_year},
+                      html_options = {required:true})%>
+      <%= submit_tag("Search", :search => nil, :class => 'btn btn-default') %>
+      <%= link_to 'Clear', expenses_path, :class => 'btn btn-default'  %>
+    </p>
+    <%end%>
+  </div>
+</div>
+
+
+<div class = "panel panel-default">
+  <div class = "panel-heading">
+    <h5>
+      Lifetime Expenses
+      <div class = "pull-right">
+        <%=number_to_currency(@lifetime_expenses)%>
+      </div>
+    </h5>
+  </div>
+</div>
+
+
+

@@ -1,0 +1,1 @@
+json.partial! "shaving_records/shaving_record", shaving_record: @shaving_record
