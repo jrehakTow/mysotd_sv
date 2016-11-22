@@ -3,24 +3,11 @@ class ShavingRecordsController < ApplicationController
   before_action :set_shaving_record, only: [:show, :edit, :update, :destroy, :get_items]
   before_filter :authenticate_user!
   helper_method :sort_column, :sort_direction
-  #require 'json'
-  #respond_to :json
 
   # GET /shaving_records
   # GET /shaving_records.json
   def index
     @shaving_records = ShavingRecord.where(user_id: current_user.id).order(sort_column + ' ' + sort_direction)
-
-    #respond_to do |format|
-     # format.html
-      ##format.json {render :json => @shaving_record.to_json + @items.to_json}
-
-#      format.json {render :json =>{:shaving_record => @shaving_record,
-       #                            :items => @items
- #       }
-  #    }
-   #   puts format.json
-    #end
   end
 
   # GET /shaving_records/1
@@ -30,11 +17,8 @@ class ShavingRecordsController < ApplicationController
     @shaving_items = ShavingItem.where(shaving_record_id: params[:id]).pluck(:item_id)
     @items = Item.where(id: @shaving_items)
 
-    #@shaving_record.to_json
     respond_to do |format| #this includes items!
       format.html
-      #format.json {render :json => @shaving_record.to_json + @items.to_json}
-
       format.json {render :json =>{:shaving_record => @shaving_record,
         :items => @items
         }
@@ -72,8 +56,6 @@ class ShavingRecordsController < ApplicationController
         #create loop to add multiple items to shaving items
         @shaving_items.each do |item|
           shaving_item = ShavingItem.new
-          #puts 'shaving record', @shaving_record.id
-          #puts 'item', item
           @item = Item.find(item)
           shaving_item.shaving_record_id = @shaving_record.id
           shaving_item.item_id = item
@@ -94,18 +76,11 @@ class ShavingRecordsController < ApplicationController
   def update
 
     @shaving_items = params['shave_record'][:item_ids]
-    #puts "update" + @shaving_items.to_s
-    #@shaving_items_in_record = Hash[ShavingItem.where(shaving_record_id: params[:id]).pluck(:item_id).flatten(1)]
     @shaving_items_in_record = ShavingItem.where(shaving_record_id: params[:id]).pluck(:item_id)
     @shaving_items_in_record = @shaving_items_in_record.map(&:to_s)
-    #puts "Old one" + @shaving_items_in_record.to_s
 
-    #@array_math = @shaving_items.zip(@shaving_items_in_record)
     @items_to_add = @shaving_items - @shaving_items_in_record
-    #puts "New items" + @array_math.to_s
     @items_to_remove = @shaving_items_in_record - @shaving_items
-    #puts "items to remove" +@items_to_remove.to_s
-
 
     respond_to do |format|
       if @shaving_record.update(shaving_record_params)
@@ -168,7 +143,6 @@ class ShavingRecordsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def shaving_record_params
-      #params.require(:shaving_record).permit(:description, :date, :rating, :user_id, :picture)
       params.require(:shaving_record).permit(:description, :date, :rating, :picture,
                                              items: [:name, :id], :item_ids =>[]).merge(user_id: current_user.id)
     end

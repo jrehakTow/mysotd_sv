@@ -10,57 +10,11 @@
     </div>
 </div>
 
-<%if false%>
-<table class="table table-responsive">
-  <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:picture) %></th>
-      <th><%= model_class.human_attribute_name(:description) %></th>
-      <th><%= sortable "date" %></th>
-      <th><i class="icon-arrow-up"><%= sortable "rating"%></i></th>
-      <th><%= model_class.human_attribute_name(:user_id) %></th>
-      <th><%= sortable "created_at" %></th>
-
-      <th><%= model_class.human_attribute_name(:items) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @shaving_records.each do |shaving_record| %>
-      <tr>
-        <td><%= link_to shaving_record.id, shaving_record_path(shaving_record) %></td>
-        <td><%= link_to image_tag(shaving_record.picture(:thumb))%></td>
-        <td><%= shaving_record.description %></td>
-        <td><%= shaving_record.date %></td>
-        <td><%= shaving_record.rating %></td>
-        <td><%= shaving_record.user_id %></td>
-        <td><%=l shaving_record.created_at %></td>
-        <td><% shaving_record.items.each do |item| %>
-              <ul>
-                <li><%= item.name%></li>
-              </ul>
-          <%end%>
-        </td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_shaving_record_path(shaving_record), :class => 'btn btn-default btn-xs' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      shaving_record_path(shaving_record),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-xs btn-danger' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<%end%>
-
 <% @shaving_records.each do |shaving_record| %>
     <div class="panel panel-default">
-      <div class="panel-heading"><h5>
-        <%= link_to shaving_record.date.strftime("%b %d, %Y"), shaving_record_path(shaving_record)%>
+      <div class="panel-heading">
+        <h5>
+          <%= link_to shaving_record.date.strftime("%b %d, %Y"), shaving_record_path(shaving_record)%>
         </h5>
       </div>
       <div class="panel-body">

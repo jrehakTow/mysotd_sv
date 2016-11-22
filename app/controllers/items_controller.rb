@@ -3,17 +3,11 @@ class ItemsController < ApplicationController
   before_filter :authenticate_user!
   helper_method :sort_column, :sort_direction #, :hide_items
 
-  #should do number of uses before retired
+
   # GET /items
   # GET /items.json
   def index
-    #if params[:retired]
-      #@items = Item.where(user_id: current_user.id, retired: hide_items).order(sort_column + ' ' + sort_direction)
-    #else
-      #@items = Item.where(user_id: current_user.id).order(sort_column + ' ' + sort_direction)
-    #end
     @items = Item.where(user_id: current_user.id).order(sort_column + ' ' + sort_direction)
-
   end
 
   # GET /items/1
@@ -72,17 +66,15 @@ class ItemsController < ApplicationController
 
 
   private
-  def sort_column
-    params[:sort] || "created_at"
-  end
+    def sort_column
+      params[:sort] || "created_at"
+    end
 
-  def sort_direction
-    params[:direction] || "asc"
-  end
+    def sort_direction
+      params[:direction] || "asc"
+    end
 
-  #def hide_items
-    #params[:retired]
-  #end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_item
       @item = Item.find(params[:id])
@@ -90,7 +82,6 @@ class ItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
-      #params.require(:item).permit(:name, :description, :uses, :price, :purchase_date, :retired, :category_id, :user_id, :equipment_picture)
       params.require(:item).permit(:name, :description, :uses, :price, :purchase_date, :retired, :category_id, :equipment_picture).merge(user_id: current_user.id)
     end
 end

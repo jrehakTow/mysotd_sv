@@ -16,11 +16,13 @@
         <dt><strong><%= model_class.human_attribute_name(:rating) %>:</strong></dt>
         <dd><%= @shaving_record.rating %></dd>
         <dt><strong><%= model_class.human_attribute_name(:items) %>:</strong></dt>
-        <dd> <% @items.all.each do |item| %>
+        <dd>
+          <% @items.all.each do |item| %>
               <div>
                 <%= item.name %>
               </div>
-          <%end%></dd>
+          <%end%>
+        </dd>
       </dl>
 
         <%= link_to t('.back', :default => t("helpers.links.back")),
