@@ -40462,3 +40462,92 @@ Started GET "/assets/shaveIcon-bd85ef70d5d56efd214f013a2f3b31f5cbfcad4bf1b2c0737
 
 
 Started GET "/assets/missing/shave_record/thumb/missing-40839dedefb49ae0a98a2ef6a4d4aa1e9cf0083c981bf9aeaf25100c06e56692.png" for 127.0.0.1 at 2016-11-21 23:06:19 -0500
+
+
+Started GET "/shaving_records" for 127.0.0.1 at 2016-11-21 23:13:18 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ShavingRecordsController#index as HTML
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+  [1m[36mShavingRecord Load (0.4ms)[0m  [1mSELECT "shaving_records".* FROM "shaving_records" WHERE "shaving_records"."user_id" = $1  ORDER BY created_at asc[0m  [["user_id", 1]]
+  [1m[35mItem Load (0.5ms)[0m  SELECT "items".* FROM "items" INNER JOIN "shaving_items" ON "items"."id" = "shaving_items"."item_id" WHERE "shaving_items"."shaving_record_id" = $1  [["shaving_record_id", 1]]
+  Rendered shaving_records/index.html.erb within layouts/application (419.8ms)
+Completed 200 OK in 591ms (Views: 533.5ms | ActiveRecord: 7.5ms)
+
+
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2016-11-21 23:13:20 -0500
+Processing by Devise::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"RdpAkxbPph7XFN6sOEue4xoh/99idn7Zue2Gftxba9r39AePssHDU1m4w0CzqCT1mmLuMpL4NypPpzolxznn/Q=="}
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+Redirected to http://0.0.0.0:3000/
+Completed 302 Found in 54ms (ActiveRecord: 0.9ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-11-21 23:13:20 -0500
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 140ms (Views: 139.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2016-11-21 23:13:24 -0500
+Processing by Devise::SessionsController#new as HTML
+  Rendered devise/shared/_links.html.erb (1.5ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (36.0ms)
+Completed 200 OK in 123ms (Views: 120.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2016-11-21 23:13:27 -0500
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"g29nDtJCjKqqovI73kUxpLx1QNgXbMFkjvx6w17RHbyYgfXX/f4RGJWsTKsBprZ6Y/3cRAW36Eoot4nJvjKoiA==", "user"=>{"email"=>"homer@email.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."email" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["email", "homer@email.com"]]
+Completed 401 Unauthorized in 4ms (ActiveRecord: 0.3ms)
+Processing by Devise::SessionsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"g29nDtJCjKqqovI73kUxpLx1QNgXbMFkjvx6w17RHbyYgfXX/f4RGJWsTKsBprZ6Y/3cRAW36Eoot4nJvjKoiA==", "user"=>{"email"=>"homer@email.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  Rendered devise/shared/_links.html.erb (0.4ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (3.6ms)
+Completed 200 OK in 255ms (Views: 73.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2016-11-21 23:13:30 -0500
+Processing by Devise::RegistrationsController#new as HTML
+  Rendered devise/shared/_links.html.erb (0.4ms)
+  Rendered devise/registrations/new.html.erb within layouts/application (4.7ms)
+Completed 200 OK in 84ms (Views: 83.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2016-11-21 23:13:41 -0500
+Processing by Devise::RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"tJv5zIruQP9b/MHJQAt4GeedkxaJT+NsfwkIaVDQzvCvdWsVpVLdTWTyf1mf6P/HOBUPipuUykLZQvtjsDN7xA==", "user"=>{"email"=>"homer@email.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up"}
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'homer@email.com' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "homer@email.com"], ["encrypted_password", "$2a$11$LdRmNXYHfnCDdZlhtWXITejkgsha84.GjmXF04SGIxqvDSn5DVLCi"], ["created_at", "2016-11-22 04:13:41.963094"], ["updated_at", "2016-11-22 04:13:41.963094"]]
+  [1m[35m (279.7ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  UPDATE "users" SET "last_sign_in_at" = $1, "current_sign_in_at" = $2, "last_sign_in_ip" = $3, "current_sign_in_ip" = $4, "sign_in_count" = $5, "updated_at" = $6 WHERE "users"."id" = $7  [["last_sign_in_at", "2016-11-22 04:13:42.245575"], ["current_sign_in_at", "2016-11-22 04:13:42.245575"], ["last_sign_in_ip", "127.0.0.1"], ["current_sign_in_ip", "127.0.0.1"], ["sign_in_count", 1], ["updated_at", "2016-11-22 04:13:42.246801"], ["id", 2]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+Redirected to http://0.0.0.0:3000/
+Completed 302 Found in 459ms (ActiveRecord: 281.8ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-11-21 23:13:42 -0500
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (1.4ms)
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["id", 2]]
+Completed 200 OK in 73ms (Views: 71.8ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/items" for 127.0.0.1 at 2016-11-21 23:13:44 -0500
+Processing by ItemsController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 2]]
+  [1m[35mItem Load (0.3ms)[0m  SELECT "items".* FROM "items" WHERE "items"."user_id" = $1  ORDER BY created_at asc  [["user_id", 2]]
+  Rendered items/index.html.erb within layouts/application (5.3ms)
+Completed 200 OK in 90ms (Views: 87.0ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/shaving_records" for 127.0.0.1 at 2016-11-21 23:13:44 -0500
+Processing by ShavingRecordsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 2]]
+  [1m[35mShavingRecord Load (0.4ms)[0m  SELECT "shaving_records".* FROM "shaving_records" WHERE "shaving_records"."user_id" = $1  ORDER BY created_at asc  [["user_id", 2]]
+  Rendered shaving_records/index.html.erb within layouts/application (3.0ms)
+Completed 200 OK in 89ms (Views: 85.5ms | ActiveRecord: 0.8ms)
