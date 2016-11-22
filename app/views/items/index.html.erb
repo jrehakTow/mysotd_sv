@@ -7,7 +7,24 @@
       <div class="btn btn-default btn-sm"><%= sortable "purchase_date"%></div>
       <div class="btn btn-default btn-sm"><%= sortable "price"%></div>
     </div>
-    <div class=" btn btn-default btn-xs" ><div id="hide_button">Hide Retired</div> </div>
+    <div class="btn-group-xs">
+      <div class=" btn btn-default btn-xs" ><div id="hide_button">Hide Retired</div> </div>
+      <div class="btn-group">
+        <a href="#" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+          Categories
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><%= link_to 'All', :category_id => nil, :class =>"btn-default btn-xs"%>  </li>
+          <% @categories.each do |category| %>
+              <%if false%><div class="btn-default btn-xs"><li><div id= <%= category.name%>_button><%= category.name%></div></li></div><%end%>
+              <li><%= link_to category.name, :category_id => category.id, :class =>"btn-default btn-xs"%></li>
+          <%end%>
+        </ul>
+      </div>
+
+    </div>
+
 
     <div class="pull-right">
       <%= link_to t('.new', :default => t("helpers.links.new")),
@@ -22,68 +39,103 @@
 
 <script src='https://code.jquery.com/jquery-3.1.0.min.js'></script>
 <script>
-  function main() {
+  function hide_retired() {
     document.getElementById("hide_button").className = "hide_button";
     document.getElementById("record_true").className = "hide_record";
     $('.hide_button').on('click', function(){
       $('.hide_record').toggle();
     })
   }
-  $(document).ready(main);
+  $(document).ready(hide_retired);
+</script>
+
+<script>
+
+  function hide_toggle(button, record, hide_records) {
+
+
+    $('.'+button).on('click', function(){
+      for(var i=0; hide_records.length; i++){
+        $('.'+hide_records[i]).toggle();
+      }
+
+    })
+  }
+  function hide_categories() {
+    var categories_buttons = <%= raw @categories_buttons%>;
+    var categories_records = <%= raw @categories_records%>;
+    console.log(categories_buttons, categories_records)
+    //document.getElementById("hide_button").className = "hide_button";
+
+    for(var i = 0; i< categories_buttons.length; i++){
+      document.getElementById(categories_buttons[i]).className = categories_buttons[i];
+      console.log(categories_buttons[i])
+
+      //hide_toggle(categories_buttons[i],categories_records[j], categories_records)
+    }
+    for(var j = 0; j< categories_records.length; j++){
+      document.getElementById(categories_records[j]).className = categories_records[j];
+      console.log(categories_records[j])
+    }
+  }
+  $(document).ready(hide_categories);
 </script>
 
 <% @items.each do |item| %>
     <div id = record_<%= item.retired.to_s%>>
-    <div class="panel panel-default">
-  <div class="panel-heading"><h5><%= link_to item.name, item_path(item)%>
-    <div class="panel-title pull-right"><%=item.purchase_date.strftime("%b %d, %Y")%>
-    </div></h5>
-  </div>
-  <div class="panel-body">
-    <table class = "table table-responsive">
-      <thead>
-      <tr>
-        <th><%= model_class.human_attribute_name(:equipment_picture) %></th>
-        <th><%= model_class.human_attribute_name(:description) %></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td><%= image_tag item.equipment_picture(:thumb)%></td>
-        <td><%=item.description%></td>
-      </tr>
-      </tbody>
-    </table>
+      <div id = <%=item.category.name%>_record>
+        <div class="panel panel-default">
+          <div class="panel-heading"><h5><%= link_to item.name, item_path(item)%>
+            <div class="panel-title pull-right"><%=item.purchase_date.strftime("%b %d, %Y")%>
+            </div></h5>
+          </div>
+          <div class="panel-body">
+            <table class = "table table-responsive">
+              <thead>
+              <tr>
+                <th><%= model_class.human_attribute_name(:equipment_picture) %></th>
+                <th><%= model_class.human_attribute_name(:description) %></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td><%= image_tag item.equipment_picture(:thumb)%></td>
+                <td><%=item.description%></td>
+              </tr>
+              </tbody>
+            </table>
 
-    <table class = "table table-responsive">
-      <thead>
-      <tr>
-        <th><%= model_class.human_attribute_name(:price) %></th>
-        <th><%= model_class.human_attribute_name(:uses) %></th>
-        <th><%= model_class.human_attribute_name(:category) %></th>
-        <th><%= model_class.human_attribute_name(:retired) %></th>
+            <table class = "table table-responsive">
+              <thead>
+              <tr>
+                <th><%= model_class.human_attribute_name(:price) %></th>
+                <th><%= model_class.human_attribute_name(:uses) %></th>
+                <th><%= model_class.human_attribute_name(:category) %></th>
+                <th><%= model_class.human_attribute_name(:retired) %></th>
 
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td><%= number_to_currency(item.price) %></td>
-        <td><%= item.uses %></td>
-        <td><%= item.category.name %></td>
-        <td><div id = "retired"><%= item.retired %></div></td>
-      </tr>
-      </tbody>
-    </table>
-    <p><%= link_to t('.edit', :default => t("helpers.links.edit")),
-                   edit_item_path(item), :class => 'btn btn-default btn-s' %>
-      <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                  item_path(item),
-                  :method => :delete,
-                  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                  :class => 'btn btn-s btn-danger' %>
-    </p>
-  </div>
-</div>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td><%= number_to_currency(item.price) %></td>
+                <td><%= item.uses %></td>
+                <td><%= item.category.name %></td>
+                <td><div id = "retired"><%= item.retired %></div></td>
+              </tr>
+              </tbody>
+            </table>
+            <p><%= link_to t('.edit', :default => t("helpers.links.edit")),
+                           edit_item_path(item), :class => 'btn btn-default btn-s' %>
+              <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                          item_path(item),
+                          :method => :delete,
+                          :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                          :class => 'btn btn-s btn-danger' %>
+            </p>
+          </div>
+        </div>
+      </div>
+
 </div>
 <%end%>
 

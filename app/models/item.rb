@@ -8,9 +8,18 @@ class Item < ActiveRecord::Base
   has_attached_file :equipment_picture, styles:{original: "800x800>", medium: "300x300>", thumb: "100x100>"}, default_url: "missing/items/:style/missing.png"
   validates_attachment_content_type :equipment_picture, content_type: /\Aimage\/.*\z/
 
-  def self.search(search, userid)
+  def self.search_month(search, userid)
     year = search["(1i)"]
     month = search["(2i)"]
     where('extract(month from purchase_date) = ? AND extract(year from purchase_date) = ? AND user_id = ?',month, year, userid)
   end
+
+  def self.search(search, userid)
+    if search
+    where(category_id: search, user_id: userid)
+    else
+      where(user_id: userid)
+    end
+  end
+
 end

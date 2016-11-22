@@ -13,9 +13,9 @@ class ExpensesController < ApplicationController
     #Search by month
     get_date_limit
     @the_date = nil
-    if params[:search]
+    if params[:search_month]
       @the_date = get_last_date(expense_params)
-      @searched_month = Item.search(params[:search], current_user.id)
+      @searched_month = Item.search_month(params[:search_month], current_user.id)
       @searched_month_expense = @searched_month.sum("price")
     end
 
@@ -39,6 +39,6 @@ class ExpensesController < ApplicationController
   end
 
   def expense_params
-    params.require(:search)
+    params.require(:search_month)
   end
 end

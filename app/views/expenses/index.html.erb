@@ -40,10 +40,10 @@
   <div class = "panel-body">
     <%= form_tag expenses_path, :method => 'get' do %>
     <p>
-      <%= date_select(:search, params[:search],
+      <%= date_select(:search_month, params[:search_month],
                       options = { order:[:month, :year], default: @the_date, include_blank: @the_date.nil?, start_year: @oldest_year, end_year: @newest_year},
                       html_options = {required:true})%>
-      <%= submit_tag("Search", :search => nil, :class => 'btn btn-default') %>
+      <%= submit_tag("Search", :search_month => nil, :class => 'btn btn-default') %>
       <%= link_to 'Clear', expenses_path, :class => 'btn btn-default'  %>
     </p>
     <%end%>
