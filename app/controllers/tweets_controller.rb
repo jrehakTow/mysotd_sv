@@ -16,6 +16,12 @@ class TweetsController < ApplicationController
     redirect_to shaving_records_url, notice: 'Tweet sent.'
   end
 
+  def check_twitter
+    if $client.nil?
+      redirect_to shaving_records_url, alert: 'Please sign in to twitter'
+    end
+  end
+
   def twitter_params
     params.require(:tweet).permit(:message, :picture)
   end
