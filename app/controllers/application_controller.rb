@@ -21,4 +21,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def check_twitter
+    if $client.nil?
+      redirect_to shaving_records_url, alert: 'Not signed in to twitter!'
+    end
+  end
+
 end

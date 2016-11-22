@@ -19,12 +19,9 @@
   <dd><%= @item.purchase_date %></dd>
   <dt><strong><%= model_class.human_attribute_name(:retired) %>:</strong></dt>
   <dd><%= @item.retired %></dd>
-  <%if false %>
   <dt><strong><%= model_class.human_attribute_name(:category_id) %>:</strong></dt>
-  <dd><%= @item.category_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:user_id) %>:</strong></dt>
-  <dd><%= @item.user_id %></dd>
-      <%end%>
+  <dd><%= @category.name %></dd>
+
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),

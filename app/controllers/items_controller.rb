@@ -13,15 +13,23 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.json
   def show
+    @item = Item.find(params[:id])
+    @category = Category.find_by_id(@item.category_id)
   end
 
   # GET /items/new
   def new
     @item = Item.new
+    @category = Category.where(user_id: current_user.id)
+    puts @category
+    @item.category_id = @category
+    #@item.category = @category
   end
 
   # GET /items/1/edit
   def edit
+    @item = Item.find_by_id(params[:id])
+    @category = Category.where(user_id: current_user.id)
   end
 
   # POST /items
@@ -65,6 +73,10 @@ class ItemsController < ApplicationController
   end
 
 
+  def get_categories
+    @categories = Category.where(user_id: current_user.id)
+  end
+
   private
     def sort_column
       params[:sort] || "created_at"
@@ -73,6 +85,8 @@ class ItemsController < ApplicationController
     def sort_direction
       params[:direction] || "asc"
     end
+
+
 
 
     # Use callbacks to share common setup or constraints between actions.

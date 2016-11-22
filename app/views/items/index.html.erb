@@ -60,6 +60,7 @@
       <tr>
         <th><%= model_class.human_attribute_name(:price) %></th>
         <th><%= model_class.human_attribute_name(:uses) %></th>
+        <th><%= model_class.human_attribute_name(:category) %></th>
         <th><%= model_class.human_attribute_name(:retired) %></th>
 
       </tr>
@@ -68,8 +69,8 @@
       <tr>
         <td><%= number_to_currency(item.price) %></td>
         <td><%= item.uses %></td>
+        <td><%= item.category.name %></td>
         <td><div id = "retired"><%= item.retired %></div></td>
-
       </tr>
       </tbody>
     </table>

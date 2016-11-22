@@ -1,4 +1,10 @@
 class User < ActiveRecord::Base
+  after_create :create_default_categories
+
+  has_many :categories, dependent: :destroy
+  has_many :items, dependent: :destroy
+  has_many :shave_records, dependent: :destroy
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -80,6 +86,16 @@ class User < ActiveRecord::Base
       config.access_token_secret = secret
     end
     puts "twitter client made"
+  end
+
+  DEFAULT_CATEGORIES = [
+      {name: 'Uncategorized'}, {name: 'Cutters'}, {name: 'Lather'}
+  ]
+
+  def create_default_categories
+    DEFAULT_CATEGORIES.each do |default_attrs|
+      self.categories.build(default_attrs)
+    end
   end
 
 end

@@ -1,6 +1,6 @@
 #require 'twitter' #confg/initializers/twitter.rb
 class TweetsController < ApplicationController
-  #before_filter :twitter
+  before_filter :check_twitter
   def show
   end
 
