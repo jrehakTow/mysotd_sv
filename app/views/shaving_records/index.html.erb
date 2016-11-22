@@ -1,12 +1,16 @@
 <%- model_class = ShavingRecord -%>
 <div class="page-header">
   <h3><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h3>
-  <div class="btn btn-default"><%= sortable "date" %></div>
-  <div class="btn btn-default"><%= sortable "rating"%></div>
-  <div class="pull-right">
-    <%= link_to t('.new', :default => t("helpers.links.new")),
+  <div class = "btn-toolbar">
+    <div class = "btn-group-sm">
+      <div class="btn btn-default"><%= sortable "date" %></div>
+      <div class="btn btn-default"><%= sortable "rating"%></div>
+      <div class="pull-right">
+        <%= link_to t('.new', :default => t("helpers.links.new")),
                 new_shaving_record_path,
                 :class => 'btn btn-primary' %>
+      </div>
+      </div>
     </div>
 </div>
 

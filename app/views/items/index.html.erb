@@ -1,17 +1,23 @@
 <%- model_class = Item -%>
 <div class="page-header">
   <h3><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h3>
-  <div class="btn btn-default btn-sm"><%= sortable "uses" %></div>
-  <div class="btn btn-default btn-sm"><%= sortable "purchase_date"%></div>
-  <div class="btn btn-default btn-sm"><%= sortable "price"%></div>
-  <%if false%><div class=" btn btn-default btn-sm"><%= hideable "retired"%></div><%end%>
-  <div class=" btn btn-default btn-sm" ><div id="hide_button">Hide Retired</div> </div>
-
-  <div class="pull-right">
-    <%= link_to t('.new', :default => t("helpers.links.new")),
-              new_item_path,
-              :class => 'btn btn-primary' %>
+  <div class = "btn-toolbar">
+    <div class = "btn-group-xs">
+      <div class="btn btn-default btn-sm"><%= sortable "uses" %></div>
+      <div class="btn btn-default btn-sm"><%= sortable "purchase_date"%></div>
+      <div class="btn btn-default btn-sm"><%= sortable "price"%></div>
     </div>
+    <div class=" btn btn-default btn-xs" ><div id="hide_button">Hide Retired</div> </div>
+
+    <div class="pull-right">
+      <%= link_to t('.new', :default => t("helpers.links.new")),
+                  new_item_path,
+                  :class => 'btn btn-primary' %>
+    </div>
+  </div>
+
+
+
 </div>
 
 <script src='https://code.jquery.com/jquery-3.1.0.min.js'></script>
