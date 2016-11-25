@@ -1,1 +1,0 @@
-# mysotd_sv

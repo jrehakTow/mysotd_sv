@@ -1,28 +1,24 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+My shave of the day web application read me.
 
-Things you may want to cover:
+* Ruby version - 2.3.0
 
-* Ruby version
+* Rails version - 4.2
 
-* System dependencies
+* System dependencies - imagemagick
 
-* Configuration
+* Configuration - Default Rails 4 configuration. Running on an OS X 10.11.6 machine.
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
+* Database postgreSQL - make sure to create database on local machine and update database.yml as necessary.
 
 * Deployment instructions
+    - Clone Repo
+    - Change Directory to trunk in terminal
+    - Run following commands to get up and running:
+    'bundle install'
+    'rake db:create'
+    'rake db:migrate'
+    'rails server'
 
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.

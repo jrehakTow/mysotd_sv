@@ -22,9 +22,7 @@ class ItemsController < ApplicationController
   def new
     @item = Item.new
     @category = Category.where(user_id: current_user.id)
-    puts @category
     @item.category_id = @category
-    #@item.category = @category
   end
 
   # GET /items/1/edit
