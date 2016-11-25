@@ -5,17 +5,17 @@ one:
   description: MyText
   uses: 1
   price: 9.99
-  purchaseDate: 2016-09-05
+  purchase_date: 2016-09-05
   retired: false
-  category_id: 
-  user_id: 
+  category_id:
+  user_id:
 
 two:
   name: MyString
   description: MyText
   uses: 1
   price: 9.99
-  purchaseDate: 2016-09-05
+  purchase_date: 2016-09-05
   retired: false
-  category_id: 
-  user_id: 
+  category_id:
+  user_id:

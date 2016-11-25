@@ -2,15 +2,15 @@
 <div class="page-header">
   <h3><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h3>
   <div class = "btn-toolbar">
-    <div class = "btn-group-xs">
-      <div class="btn btn-default btn-sm"><%= sortable "uses" %></div>
-      <div class="btn btn-default btn-sm"><%= sortable "purchase_date"%></div>
-      <div class="btn btn-default btn-sm"><%= sortable "price"%></div>
+    <div class = "btn-group-sm">
+      <div class="btn btn-default btn-sm" style="margin: 5px;"><%= sortable "uses" %></div>
+      <div class="btn btn-default btn-sm" style="margin: 5px;"><%= sortable "purchase_date"%></div>
+      <div class="btn btn-default btn-sm" style="margin: 5px;"><%= sortable "price"%></div>
     </div>
-    <div class="btn-group-xs">
-      <div class=" btn btn-default btn-xs" ><div id="hide_button">Hide Retired</div> </div>
+    <div class="btn-group-sm">
+      <div class=" btn btn-default btn-sm" style="margin: 5px;" ><div id="hide_button">Hide Retired</div> </div>
       <div class="btn-group">
-        <a href="#" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+        <a href="#" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
           Categories
           <span class="caret"></span>
         </a>
@@ -22,68 +22,18 @@
           <%end%>
         </ul>
       </div>
-
     </div>
-
-
     <div class="pull-right">
       <%= link_to t('.new', :default => t("helpers.links.new")),
                   new_item_path,
                   :class => 'btn btn-primary' %>
     </div>
   </div>
-
-
-
 </div>
 
-<script src='https://code.jquery.com/jquery-3.1.0.min.js'></script>
-<script>
-  function hide_retired() {
-    document.getElementById("hide_button").className = "hide_button";
-    document.getElementById("record_true").className = "hide_record";
-    $('.hide_button').on('click', function(){
-      $('.hide_record').toggle();
-    })
-  }
-  $(document).ready(hide_retired);
-</script>
-
-<script>
-
-  function hide_toggle(button, record, hide_records) {
-
-
-    $('.'+button).on('click', function(){
-      for(var i=0; hide_records.length; i++){
-        $('.'+hide_records[i]).toggle();
-      }
-
-    })
-  }
-  function hide_categories() {
-    var categories_buttons = <%= raw @categories_buttons%>;
-    var categories_records = <%= raw @categories_records%>;
-    console.log(categories_buttons, categories_records)
-    //document.getElementById("hide_button").className = "hide_button";
-
-    for(var i = 0; i< categories_buttons.length; i++){
-      document.getElementById(categories_buttons[i]).className = categories_buttons[i];
-      console.log(categories_buttons[i])
-
-      //hide_toggle(categories_buttons[i],categories_records[j], categories_records)
-    }
-    for(var j = 0; j< categories_records.length; j++){
-      document.getElementById(categories_records[j]).className = categories_records[j];
-      console.log(categories_records[j])
-    }
-  }
-  $(document).ready(hide_categories);
-</script>
 
 <% @items.each do |item| %>
     <div id = record_<%= item.retired.to_s%>>
-      <div id = <%=item.category.name%>_record>
         <div class="panel panel-default">
           <div class="panel-heading"><h5><%= link_to item.name, item_path(item)%>
             <div class="panel-title pull-right"><%=item.purchase_date.strftime("%b %d, %Y")%>
@@ -134,10 +84,20 @@
             </p>
           </div>
         </div>
-      </div>
-
-</div>
+    </div>
 <%end%>
+
+<script src='https://code.jquery.com/jquery-3.1.0.min.js'></script>
+<script>
+  function hide_retired() {
+    document.getElementById("hide_button").className = "hide_button";
+    document.getElementById("record_true").className = "hide_record";
+    $('.hide_button').on('click', function(){
+      $('.hide_record').toggle();
+    })
+  }
+  $(document).ready(hide_retired);
+</script>
 
 
 
