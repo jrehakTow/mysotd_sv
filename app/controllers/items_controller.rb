@@ -7,25 +7,8 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    #original code
-    #@items = Item.where(user_id: current_user.id).order(sort_column + ' ' + sort_direction)
     @categories = Category.where(user_id: current_user.id)
-
     @items = Item.search(params[:category_id], current_user.id).order(sort_column + ' ' + sort_direction)
-
-
-
-    #for javascript
-    @categories_buttons = []
-    @categories_records = []
-    @categories.each do |category|
-      @categories_buttons.push(category.name+ '_button')
-      @categories_records.push(category.name+ '_record')
-    end
-    #@categories_names = @categories.map(&:name)
-    #@categories_names = @categories_names
-    puts @categories_buttons
-    puts @categories_records
   end
 
   # GET /items/1
@@ -103,8 +86,6 @@ class ItemsController < ApplicationController
     def sort_direction
       params[:direction] || "asc"
     end
-
-
 
 
     # Use callbacks to share common setup or constraints between actions.

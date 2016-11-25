@@ -1,4 +1,6 @@
 <%- model_class = Item -%>
+<script src='https://code.jquery.com/jquery-3.1.0.min.js'></script>
+
 <div class="page-header">
   <h3><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h3>
   <div class = "btn-toolbar">
@@ -87,7 +89,7 @@
     </div>
 <%end%>
 
-<script src='https://code.jquery.com/jquery-3.1.0.min.js'></script>
+
 <script>
   function hide_retired() {
     document.getElementById("hide_button").className = "hide_button";
