@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
-  helper_method :sort_column, :sort_direction #, :hide_items
+  helper_method :sort_column, :sort_direction
 
 
   # GET /items

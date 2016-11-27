@@ -14,7 +14,7 @@ My shave of the day web application read me.
 
 * Deployment instructions
     - Clone Repo
-    - Change Directory to trunk in terminal
+    - Change Directory to mysotd_sv.git/trunk in terminal
     - Run following commands to get up and running:
     'bundle install'
     'rake db:create'
