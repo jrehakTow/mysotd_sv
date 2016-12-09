@@ -8,7 +8,7 @@ class ItemsController < ApplicationController
   # GET /items.json
   def index
     @categories = Category.where(user_id: current_user.id)
-    @items = Item.search(params[:category_id], current_user.id).order(sort_column + ' ' + sort_direction)
+    @items = Item.search(params[:category_id], current_user.id).order(sort_column  + ' ' + sort_direction)
   end
 
   # GET /items/1
