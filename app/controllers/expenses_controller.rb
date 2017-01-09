@@ -8,10 +8,18 @@ class ExpensesController < ApplicationController
 
     @this_month_expense = @this_month_items.sum("price")
 
+    get_lifetime_expenses
+
+    search_by_month
+
+  end
+
+  def get_lifetime_expenses
     lifetime_expenses = Item.where(user_id: current_user.id)
     @lifetime_expenses = lifetime_expenses.sum("price")
+  end
 
-    #Search by month
+  def search_by_month
     get_date_limit
 
     @the_date = nil
@@ -21,7 +29,6 @@ class ExpensesController < ApplicationController
       @searched_month = Item.search_month(params[:search_month], current_user.id)
       @searched_month_expense = @searched_month.sum("price")
     end
-
   end
 
   private
